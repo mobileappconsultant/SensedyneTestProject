@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <Button
+      android:id="@+id/okButton"
+      style="@style/Widget.AppCompat.Light.ActionButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/dimen_16dp"
+      android:layout_marginEnd="180dp"
+      android:text="@android:string/ok"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/aboutMessageTextView" />
+
+  <ImageView
+    android:id="@+id/aboutImageView"
+    android:layout_width="@dimen/dimen_100dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen_16dp"
+    android:contentDescription="@string/app_name"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/about" />
+
+  <TextView
+    android:id="@+id/aboutMessageTextView"
+    android:layout_width="@dimen/dimen_0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen_16dp"
+    android:text="@string/attribution_message"
+    android:textAlignment="center"
+    android:textColor="@color/colorPrimary"
+    android:textSize="@dimen/dimen_20sp"
+    app:layout_constraintBottom_toTopOf="@id/okButton"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/aboutImageView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

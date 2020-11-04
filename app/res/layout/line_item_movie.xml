@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_margin="@dimen/dimen_8dp">
+
+  <TextView
+    android:id="@+id/titleTextView"
+    style="@style/TitleTextStyle"
+    android:layout_width="@dimen/dimen_0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toTopOf="@id/titleTextView"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/bookCardView"
+    app:layout_constraintTop_toTopOf="@id/bookCardView"
+    app:layout_constraintVertical_chainStyle="packed"
+    tools:text="Title" />
+
+  <TextView
+    android:id="@+id/overviewTextView"
+    style="@style/SubtitleTextStyle"
+    android:layout_width="@dimen/dimen_0dp"
+    android:layout_height="wrap_content"
+    android:maxLines="4"
+    app:layout_constraintBottom_toBottomOf="@id/bookCardView"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@id/titleTextView"
+    app:layout_constraintTop_toBottomOf="@id/titleTextView"
+    tools:text="Overview" />
+
+  <androidx.cardview.widget.CardView
+    android:id="@+id/bookCardView"
+    android:layout_width="@dimen/dimen_80dp"
+    android:layout_height="@dimen/dimen_100dp"
+    android:layout_marginBottom="@dimen/dimen_2dp"
+    android:layout_marginEnd="@dimen/dimen_8dp"
+    android:layout_marginTop="@dimen/dimen_2dp"
+    android:elevation="@dimen/dimen_0dp"
+    app:cardCornerRadius="@dimen/dimen_8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/titleTextView"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+      android:id="@+id/moviePosterImageView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:contentDescription="@string/app_name"
+      android:scaleType="center" />
+
+  </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">Sensyne App</string>
+  <string name="about">About</string>
+  <string name="enter_search_data">Make a search entry</string>
+  <string name="no_internet">No Internet</string>
+  <string name="unknown_error_key">There was a problem!</string>
+  <string name="attribution_message">This is app retrieves a list of hospitals from a remote endpoint, which you can
+    search locally on the device.</string>
+</resources>

@@ -1,0 +1,166 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "8d003760adb4fb0276642dc319710e5f",
+    "entities": [
+      {
+        "tableName": "RoomHospitalItem",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `Address1` TEXT, `Address2` TEXT, `Address3` TEXT, `City` TEXT, `County` TEXT, `Email` TEXT, `Fax` TEXT, `IsPimsManaged` TEXT, `Latitude` TEXT, `Longitude` TEXT, `OrganisationCode` TEXT, `OrganisationID` TEXT, `OrganisationName` TEXT, `OrganisationStatus` TEXT, `OrganisationType` TEXT, `ParentName` TEXT, `ParentODSCode` TEXT, `Phone` TEXT, `Postcode` TEXT, `Sector` TEXT, `SubType` TEXT, `Website` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Address1",
+            "columnName": "Address1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Address2",
+            "columnName": "Address2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Address3",
+            "columnName": "Address3",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "City",
+            "columnName": "City",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "County",
+            "columnName": "County",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Email",
+            "columnName": "Email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Fax",
+            "columnName": "Fax",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "IsPimsManaged",
+            "columnName": "IsPimsManaged",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Latitude",
+            "columnName": "Latitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Longitude",
+            "columnName": "Longitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "OrganisationCode",
+            "columnName": "OrganisationCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "OrganisationID",
+            "columnName": "OrganisationID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "OrganisationName",
+            "columnName": "OrganisationName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "OrganisationStatus",
+            "columnName": "OrganisationStatus",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "OrganisationType",
+            "columnName": "OrganisationType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ParentName",
+            "columnName": "ParentName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ParentODSCode",
+            "columnName": "ParentODSCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Phone",
+            "columnName": "Phone",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Postcode",
+            "columnName": "Postcode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Sector",
+            "columnName": "Sector",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "SubType",
+            "columnName": "SubType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Website",
+            "columnName": "Website",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8d003760adb4fb0276642dc319710e5f')"
+    ]
+  }
+}
