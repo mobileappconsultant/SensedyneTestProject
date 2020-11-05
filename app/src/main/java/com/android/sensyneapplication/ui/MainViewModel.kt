@@ -1,5 +1,4 @@
 package com.android.sensyneapplication.ui
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +12,6 @@ import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import com.android.sensyneapplication.ui.hospitals.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -23,14 +21,15 @@ class MainViewModel @Inject constructor(private val repository: HospitalItemsQue
 
     val _hospitalListLiveData = MutableLiveData<List<HospitalItem>>()
     val hospitalListMediatorData = MediatorLiveData<List<HospitalItem>>()
-    private var debouncePeriod: Long = 500
     private var searchJob: Job? = null
     private var _searchHospitalsLiveData: LiveData<List<HospitalItem>>
-
+    private var hospitalQueryResponse = emptyList<HospitalItem>()
     val hospitalsLoadingStateLiveData = MutableLiveData<LoadingState>()
     private val _searchFieldTextLiveData = MutableLiveData<String>()
-
     private val _navigateToDetails = MutableLiveData<Event<String>>()
+    private val MAX_NUMBER_OF_ITEMS = 10
+    private var numberOfPageRequests = 0
+    private var subListsOfHospitalResponse: List<List<HospitalItem>> = emptyList()
     val navigateToDetails: LiveData<Event<String>>
         get() = _navigateToDetails
 
@@ -54,13 +53,14 @@ class MainViewModel @Inject constructor(private val repository: HospitalItemsQue
         }
     }
 
+    fun loadMoreData() {
+        _hospitalListLiveData.postValue(processNextPagedList())
+    }
+
     fun onSearchQuery(query: String) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            delay(debouncePeriod)
-            if (query.length > 2) {
-                _searchFieldTextLiveData.value = query
-            }
+            _searchFieldTextLiveData.value = query
         }
     }
 
@@ -68,13 +68,25 @@ class MainViewModel @Inject constructor(private val repository: HospitalItemsQue
         hospitalsLoadingStateLiveData.value = LoadingState.LOADING
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val hospitalQueryResponse = repository.retrieveHospitals()
-                _hospitalListLiveData.postValue(hospitalQueryResponse)
-                hospitalsLoadingStateLiveData.postValue(LoadingState.LOADED)
+                repository.retrieveHospitals()?.let {
+                    hospitalQueryResponse = it
+                    subListsOfHospitalResponse = hospitalQueryResponse.windowed(
+                        size = MAX_NUMBER_OF_ITEMS,
+                        step = MAX_NUMBER_OF_ITEMS,
+                        partialWindows = true
+                    )
+                    _hospitalListLiveData.postValue(processNextPagedList())
+                    hospitalsLoadingStateLiveData.postValue(LoadingState.LOADED)
+                }
             } catch (e: Exception) {
                 hospitalsLoadingStateLiveData.postValue(LoadingState.UNkNOWN_ERROR)
             }
         }
+    }
+
+    fun processNextPagedList(): List<HospitalItem> {
+        numberOfPageRequests++
+        return subListsOfHospitalResponse.get(numberOfPageRequests)
     }
 
     private fun fetchHospitalByQuery(query: String): LiveData<List<HospitalItem>> {
@@ -113,9 +125,9 @@ class MainViewModel @Inject constructor(private val repository: HospitalItemsQue
     }
 
     fun onHospitalClicked(hospitalItem: HospitalItem) {
-           hospitalItem.Address1?.let {
-               _navigateToDetails.value = Event(it)
-           }
+        hospitalItem.Address1?.let {
+            _navigateToDetails.value = Event(it)
+        }
     }
 
     override fun onCleared() {

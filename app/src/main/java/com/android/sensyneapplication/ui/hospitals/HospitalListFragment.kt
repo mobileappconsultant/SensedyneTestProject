@@ -1,20 +1,21 @@
 package com.android.sensyneapplication.ui.hospitals
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.sensyneapplication.R
 import com.android.sensyneapplication.SensyneApplication.Companion.application
 import com.android.sensyneapplication.connectivity.ConnectivityLiveData
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import com.android.sensyneapplication.ui.MainViewModel
+import com.jakewharton.rxbinding4.widget.textChangeEvents
 import kotlinx.android.synthetic.main.fragment_hospital_list.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
@@ -22,23 +23,12 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var hospitalListAdapter: HospitalListAdapter
     private lateinit var connectivityLiveData: ConnectivityLiveData
+    private var isLoading: Boolean = false
+    private var debouncePeriod: Long = 500
+    private val MINIMUX_SEARCH_TEXT_LENGTH = 2
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val searchTextWatcher = object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            mainViewModel.onSearchQuery(editable.toString())
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            Log.i("", "")
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            Log.i("", "")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +39,26 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
         )
     }
 
+    private fun initialiseScrollListener() {
+        hospitalsRecyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
+                    if (!isLoading) {
+                        linearLayoutManager?.let {
+                            linearLayoutManager.findLastCompletelyVisibleItemPosition() ==
+                                hospitalListAdapter.getItemCount().minus(1)
+                        }
+                    }
+                }
+            }
+        )
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initialiseScrollListener()
         initialiseObservers()
         initialiseUIElements()
     }
@@ -102,7 +110,13 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     }
 
     private fun initialiseUIElements() {
-        searchEditText.addTextChangedListener(searchTextWatcher)
+
+        searchEditText.textChangeEvents()
+            .filter { it.text.toString().length > MINIMUX_SEARCH_TEXT_LENGTH }
+            .debounce(debouncePeriod, TimeUnit.MILLISECONDS)
+            .subscribe {
+                mainViewModel.onSearchQuery(it.text.toString())
+            }
         hospitalListAdapter = HospitalListAdapter({ movie ->
             mainViewModel.onHospitalClicked(movie as HospitalItem)
         })

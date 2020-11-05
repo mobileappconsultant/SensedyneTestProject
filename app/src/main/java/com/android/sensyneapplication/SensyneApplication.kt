@@ -5,6 +5,7 @@ import com.android.sensyneapplication.di.AppComponent
 import com.android.sensyneapplication.di.AppModule
 import com.android.sensyneapplication.di.DaggerAppComponent
 import com.android.sensyneapplication.di.HospitalApiModule
+import timber.log.Timber
 
 open class SensyneApplication : Application() {
 
@@ -26,5 +27,8 @@ open class SensyneApplication : Application() {
         super.onCreate()
         application = this
         appComponent = initAppComponent(this)
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }

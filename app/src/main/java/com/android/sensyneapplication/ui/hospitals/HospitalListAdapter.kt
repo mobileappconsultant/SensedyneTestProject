@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.line_item.view.*
 
-
 class HospitalListAdapter(
     val adapterOnClick: (Any) -> Unit
 ) :
@@ -25,7 +24,7 @@ class HospitalListAdapter(
     }
 
     fun updateData(newData: List<HospitalItem?>) {
-        data.clear()
+        // data.clear()
         data.addAll(newData)
         notifyDataSetChanged()
     }

@@ -4,5 +4,6 @@ enum class LoadingState {
     LOADING,
     ERROR,
     LOADED,
+    MORE,
     UNkNOWN_ERROR
 }
