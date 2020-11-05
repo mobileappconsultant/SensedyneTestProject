@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.di
+package com.android.sensyneapplication.di.module
 
 import com.android.sensyneapplication.BuildConfig
 import com.android.sensyneapplication.domain.model.HospitalResponseModelToRoomItemMapper

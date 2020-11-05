@@ -1,6 +1,6 @@
 
 
-package com.android.sensyneapplication
+package com.android.sensyneapplication.presentation
 
 class Event<out T>(private val content: T) {
 

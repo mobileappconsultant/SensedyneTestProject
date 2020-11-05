@@ -1,8 +1,9 @@
 
-package com.android.sensyneapplication.ui
+package com.android.sensyneapplication.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
+import com.android.sensyneapplication.presentation.MainViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module

@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.ui
+package com.android.sensyneapplication.ui.activities
 
 import android.os.Bundle
 import android.view.Menu
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.android.sensyneapplication.R
 import com.android.sensyneapplication.SensyneApplication
+import com.android.sensyneapplication.presentation.MainViewModel
 import javax.inject.Inject
 
 /**

@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.ui.hospitals
+package com.android.sensyneapplication.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View

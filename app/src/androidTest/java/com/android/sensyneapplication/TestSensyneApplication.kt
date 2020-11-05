@@ -5,7 +5,7 @@ import com.android.sensyneapplication.SensyneApplication
 import com.android.sensyneapplication.TestAppComponent
 import com.android.sensyneapplication.TestHospitalApiModule
 import com.android.sensyneapplication.di.AppComponent
-import com.android.sensyneapplication.di.AppModule
+import com.android.sensyneapplication.di.module.AppModule
 
 class TestSensyneApplication : SensyneApplication() {
 

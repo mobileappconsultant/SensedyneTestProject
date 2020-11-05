@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.ui.hospitals
+package com.android.sensyneapplication.ui.fragments
 
 import android.os.Bundle
 import android.view.View
@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.sensyneapplication.R
 import com.android.sensyneapplication.SensyneApplication.Companion.application
-import com.android.sensyneapplication.connectivity.ConnectivityLiveData
+import com.android.sensyneapplication.common.ConnectivityLiveData
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
-import com.android.sensyneapplication.ui.MainViewModel
+import com.android.sensyneapplication.presentation.MainViewModel
+import com.android.sensyneapplication.ui.adapters.HospitalListAdapter
+import com.android.sensyneapplication.presentation.LoadingState
 import com.jakewharton.rxbinding4.widget.textChangeEvents
 import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import java.util.concurrent.TimeUnit

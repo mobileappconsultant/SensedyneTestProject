@@ -6,6 +6,7 @@ import com.android.sensyneapplication.TestCoroutineRule
 import com.android.sensyneapplication.framework.domain.HospitalItemsQueryRepository
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import com.android.sensyneapplication.framework.domain.model.HospitalQueryResponse
+import com.android.sensyneapplication.presentation.MainViewModel
 import com.bumptech.glide.load.engine.Resource
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

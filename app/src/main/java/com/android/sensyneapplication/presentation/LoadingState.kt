@@ -1,9 +1,8 @@
-package com.android.sensyneapplication.ui.hospitals
+package com.android.sensyneapplication.presentation
 
 enum class LoadingState {
     LOADING,
     ERROR,
     LOADED,
-    MORE,
     UNkNOWN_ERROR
 }

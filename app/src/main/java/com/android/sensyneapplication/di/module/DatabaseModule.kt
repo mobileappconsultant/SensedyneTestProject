@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.di
+package com.android.sensyneapplication.di.module
 
 import android.app.Application
 import com.android.sensyneapplication.domain.AppDatabase

@@ -1,9 +1,9 @@
 package com.android.sensyneapplication
 
 import com.android.sensyneapplication.di.AppComponent
-import com.android.sensyneapplication.di.AppModule
-import com.android.sensyneapplication.di.DatabaseModule
-import com.android.sensyneapplication.ui.ViewModelModule
+import com.android.sensyneapplication.di.module.AppModule
+import com.android.sensyneapplication.di.module.DatabaseModule
+import com.android.sensyneapplication.di.module.ViewModelModule
 import dagger.Component
 import okhttp3.mockwebserver.MockWebServer
 import javax.inject.Singleton

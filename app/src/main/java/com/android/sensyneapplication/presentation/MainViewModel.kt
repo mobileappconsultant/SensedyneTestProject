@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.ui
+package com.android.sensyneapplication.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,10 +6,8 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.sqlite.db.SimpleSQLiteQuery
-import com.android.sensyneapplication.Event
 import com.android.sensyneapplication.framework.domain.HospitalItemsQueryRepository
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
-import com.android.sensyneapplication.ui.hospitals.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
