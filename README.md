@@ -16,6 +16,16 @@
 - Issues project (bug report + feature request)
 
 
+
+
+###OUTSTANING TASK AND IMPROVEMENTS
+- Increase Unit tests around current use of Mockwebserver
+- More Unit tests
+- Better Search view options
+- Better arrangement of information current recyclerview
+
+
+
 ## Gradle Setup 🐘
 
 This project is using [**Gradle Kotlin DSL**](https://docs.gradle.org/current/userguide/kotlin_dsl.html) as well as the [Plugin DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block) to setup the build.
