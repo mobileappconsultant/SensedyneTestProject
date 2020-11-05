@@ -45,12 +45,12 @@ There are currently the following workflows available:
 - [Validate Gradle Wrapper](.github/workflows/gradle-wrapper-validation.yml) - Will check that the gradle wrapper has a valid checksum
 - [Android Pull Request & Master CI](.github/workflows/workflow.yaml) - Will run the `build`, `check` and `assembleDebug` tasks.
 
-## Testing
-
 ## How To Build
 Pull the code on this branch, import into Android Studio, from there you can run it like a standard
 android project project or run ./gradlew assembleDebug. Further notes can be found here https://developer.android.com/studio/build/building-cmdline#DebugMode
 
+
+## Testing
 To test the **release** build variant locally:
 1. Create key store file outside of the project directory. Please do not commit your keystore file to git.
 
