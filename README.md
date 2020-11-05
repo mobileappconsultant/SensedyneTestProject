@@ -47,6 +47,10 @@ There are currently the following workflows available:
 
 ## Testing
 
+## How To Build
+Pull the code on this branch, import into Android Studio, from there you can run it like a standard
+android project project or run ./gradlew assembleDebug. Further notes can be found here https://developer.android.com/studio/build/building-cmdline#DebugMode
+
 To test the **release** build variant locally:
 1. Create key store file outside of the project directory. Please do not commit your keystore file to git.
 
