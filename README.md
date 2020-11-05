@@ -43,7 +43,7 @@ This project is also using [**detekt**](https://github.com/detekt/detekt) to ana
 
 There are currently the following workflows available:
 - [Validate Gradle Wrapper](.github/workflows/gradle-wrapper-validation.yml) - Will check that the gradle wrapper has a valid checksum
-- [Android Pull Request & Master CI](.github/workflows/workflow.yaml) - Will run the `build`, `check` and assembleDebug` tasks.
+- [Android Pull Request & Master CI](.github/workflows/workflow.yaml) - Will run the `build`, `check` and `assembleDebug` tasks.
 
 ## Testing
 
