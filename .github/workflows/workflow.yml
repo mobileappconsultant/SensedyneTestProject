@@ -30,7 +30,7 @@ jobs:
           path: ~/.gradle/wrapper/
           key: cache-gradle-wrapper
       - name: Run Gradle tasks
-        run: ./gradlew build check --continue
+        run: bash./gradlew check --continue
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
