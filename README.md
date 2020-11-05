@@ -40,11 +40,10 @@ This project is also using [**detekt**](https://github.com/detekt/detekt) to ana
 
 ## CI ⚙️
 
-This project is using [**GitHub Actions**](https://github.com/cortinico/kotlin-android-project/actions) as CI. You don't need to setup any external service and you should have a running CI once you start using this project.
 
 There are currently the following workflows available:
 - [Validate Gradle Wrapper](.github/workflows/gradle-wrapper-validation.yml) - Will check that the gradle wrapper has a valid checksum
-- [Pre Merge Checks](.github/workflows/pre-merge.yaml) - Will run the `build`, `check` and `publishToMavenLocal` tasks.
+- [Android Pull Request & Master CI](.github/workflows/workflow.yaml) - Will run the `build`, `check` and assembleDebug` tasks.
 
 ## Testing
 
