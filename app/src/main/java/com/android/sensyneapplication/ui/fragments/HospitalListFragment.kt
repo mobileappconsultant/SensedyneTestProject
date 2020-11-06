@@ -6,12 +6,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.sensyneapplication.R
 import com.android.sensyneapplication.SensyneApplication.Companion.application
 import com.android.sensyneapplication.common.ConnectivityLiveData
-import com.android.sensyneapplication.framework.domain.model.HospitalItem
+import com.android.sensyneapplication.common.EndlessRecyclerOnScrollListener
 import com.android.sensyneapplication.presentation.LoadingState
 import com.android.sensyneapplication.presentation.MainViewModel
 import com.android.sensyneapplication.ui.adapters.HospitalListAdapter
@@ -28,6 +26,7 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     private var isLoading: Boolean = false
     private val debouncePeriod: Long = 500
     private val MINIMUX_SEARCH_TEXT_LENGTH = 2
+    private var isSearching = false
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -43,16 +42,10 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
 
     private fun initialiseScrollListener() {
         hospitalsRecyclerView.addOnScrollListener(
-            object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
-                    if (!isLoading) {
-                        linearLayoutManager?.let {
-                            linearLayoutManager.findLastCompletelyVisibleItemPosition() ==
-                                hospitalListAdapter.getItemCount().minus(1)
-                        }
-                    }
+            object : EndlessRecyclerOnScrollListener() {
+                override fun onLoadMore() {
+                    if (isSearching) return
+                    mainViewModel.loadMoreData()
                 }
             }
         )
@@ -60,9 +53,9 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initialiseScrollListener()
         initialiseObservers()
         initialiseUIElements()
+        initialiseScrollListener()
     }
 
     private fun initialiseObservers() {
@@ -76,7 +69,7 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
         mainViewModel.hospitalsLoadingStateLiveData.observe(
             viewLifecycleOwner,
             {
-                onMovieLoadingStateChanged(it)
+                onHospitalLoadingState(it)
             }
         )
 
@@ -117,10 +110,11 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
             .filter { it.text.toString().length > MINIMUX_SEARCH_TEXT_LENGTH }
             .debounce(debouncePeriod, TimeUnit.MILLISECONDS)
             .subscribe {
+                if (it.text.isNotEmpty()) isSearching = true
                 mainViewModel.onSearchQuery(it.text.toString())
             }
-        hospitalListAdapter = HospitalListAdapter({ movie ->
-            mainViewModel.onHospitalClicked(movie as HospitalItem)
+        hospitalListAdapter = HospitalListAdapter({ hospitalItem ->
+            mainViewModel.onHospitalClicked(hospitalItem)
         })
         hospitalsRecyclerView.apply {
             adapter = hospitalListAdapter
@@ -128,7 +122,7 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
         }
     }
 
-    private fun onMovieLoadingStateChanged(state: LoadingState) {
+    private fun onHospitalLoadingState(state: LoadingState) {
         when (state) {
             LoadingState.LOADING -> {
                 statusButton.visibility = View.GONE

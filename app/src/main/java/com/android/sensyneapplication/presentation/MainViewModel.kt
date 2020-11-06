@@ -1,10 +1,5 @@
 package com.android.sensyneapplication.presentation
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.android.sensyneapplication.domain.database_search.QueryBuilder
 import com.android.sensyneapplication.domain.repository.HospitalItemsQueryRepository
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
@@ -30,6 +25,7 @@ class MainViewModel @Inject constructor(
     private val _navigateToDetails = MutableLiveData<Event<String>>()
     private val MAX_NUMBER_OF_ITEMS = 10
     private var numberOfPageRequests = 0
+    private val START_INDEX=0
     private var subListsOfHospitalResponse: List<List<HospitalItem>> = emptyList()
     val navigateToDetails: LiveData<Event<String>>
         get() = _navigateToDetails
@@ -76,7 +72,7 @@ class MainViewModel @Inject constructor(
                         step = MAX_NUMBER_OF_ITEMS,
                         partialWindows = true
                     )
-                    _hospitalListLiveData.postValue(processNextPagedList())
+                    _hospitalListLiveData.postValue(subListsOfHospitalResponse.get(START_INDEX))
                     hospitalsLoadingStateLiveData.postValue(LoadingState.LOADED)
                 }
             } catch (e: Exception) {
@@ -87,7 +83,7 @@ class MainViewModel @Inject constructor(
 
     fun processNextPagedList(): List<HospitalItem> {
         numberOfPageRequests++
-        return subListsOfHospitalResponse.get(numberOfPageRequests)
+        return subListsOfHospitalResponse.subList(START_INDEX, numberOfPageRequests.plus(1)).flatten()
     }
 
     private fun fetchHospitalByQuery(query: String): LiveData<List<HospitalItem>> {

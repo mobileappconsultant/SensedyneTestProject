@@ -3,25 +3,19 @@ package com.android.sensyneapplication.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.android.sensyneapplication.R
+import com.android.sensyneapplication.SensyneApplication
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.line_item.view.*
+import kotlinx.android.synthetic.main.view_hospital_item.view.*
 
 class HospitalListAdapter(
-    val adapterOnClick: (Any) -> Unit
+    val adapterOnClick: (HospitalItem) -> Unit
 ) :
     RecyclerView.Adapter<HospitalListAdapter.HospitalItemViewHolder>() {
 
     private var data = mutableListOf<HospitalItem?>()
-
-    val requestOptions: RequestOptions by lazy {
-        RequestOptions()
-            .error(R.drawable.no_internet)
-            .placeholder(R.drawable.ic_movie_placeholder)
-    }
 
     fun updateData(newData: List<HospitalItem?>) {
         data.clear()
@@ -31,18 +25,17 @@ class HospitalListAdapter(
 
     inner class HospitalItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(movie: HospitalItem?) {
-            // itemView.titleTextView.text = movie?.title
-            // itemView.overviewTextView.text = movie?.overview
+        fun bind(hospitalItem: HospitalItem?) {
 
-            Glide.with(itemView.context)
-                .applyDefaultRequestOptions(requestOptions)
-                .load(""/*"$POSTER_IMAGE_PATH_PREFIX${movie?.posterPath}"*/)
-                .into(itemView.posterImageView)
+            with(hospitalItem) {
+                itemView.primary_text.text = this?.ParentName
+                itemView.sub_text.text = this?.OrganisationName
+                itemView.supporting_text.text = this?.buildAddress
+            }
 
             itemView.setOnClickListener {
-                movie?.let {
-                    adapterOnClick.invoke(it)
+                hospitalItem?.let {
+                    //    adapterOnClick.invoke(it)
                 }
             }
         }
@@ -50,11 +43,10 @@ class HospitalListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HospitalItemViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.line_item,
+            R.layout.view_hospital_item,
             parent,
             false
         )
-
         return HospitalItemViewHolder(itemView)
     }
 
@@ -64,7 +56,10 @@ class HospitalListAdapter(
 
     override fun getItemCount() = data.size
 
-    companion object {
-        const val POSTER_IMAGE_PATH_PREFIX = "https://image.tmdb.org/t/p/w300"
-    }
+    val HospitalItem.buildAddress: String
+        get() {
+            return Address1.plus(" ").plus(Address2).plus(" ").plus(Address3).plus(",")
+                .plus(County).plus(" ").plus(City)
+                .plus(" ").plus(Postcode)
+        }
 }

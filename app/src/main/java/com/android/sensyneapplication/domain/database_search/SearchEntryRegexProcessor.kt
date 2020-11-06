@@ -5,8 +5,7 @@ import com.android.sensyneapplication.domain.database.DBConstants.retrieveAllReg
 class SearchEntryRegexProcessor : RegexProcessor {
 
     override fun process(searchEntry: String): List<String> {
-        var bla = retrieveAllRegexAsList()
+        return retrieveAllRegexAsList()
             .filter { it.second.matcher(searchEntry).matches() }.map { it.first }.toList()
-        return bla
     }
 }
