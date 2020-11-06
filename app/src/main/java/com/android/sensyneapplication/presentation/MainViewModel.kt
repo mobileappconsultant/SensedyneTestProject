@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.sensyneapplication.domain.search.QueryBuilder
 import com.android.sensyneapplication.domain.repository.HospitalItemsQueryRepository
+import com.android.sensyneapplication.domain.search.QueryBuilder
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

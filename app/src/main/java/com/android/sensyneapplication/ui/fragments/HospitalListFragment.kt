@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-
 class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
 
     private lateinit var mainViewModel: MainViewModel

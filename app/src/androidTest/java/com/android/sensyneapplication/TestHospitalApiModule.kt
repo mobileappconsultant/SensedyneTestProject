@@ -1,10 +1,10 @@
 package com.android.sensyneapplication
 
-import com.android.sensyneapplication.domain.search.QueryBuilder
-import com.android.sensyneapplication.domain.search.SearchEntryRegexProcessor
 import com.android.sensyneapplication.domain.mapper.HospitalResponseModelToRoomItemMapper
 import com.android.sensyneapplication.domain.mapper.RoomResponseToHospitalItemMapper
 import com.android.sensyneapplication.domain.remote.HospitalQueryService
+import com.android.sensyneapplication.domain.search.QueryBuilder
+import com.android.sensyneapplication.domain.search.SearchEntryRegexProcessor
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi

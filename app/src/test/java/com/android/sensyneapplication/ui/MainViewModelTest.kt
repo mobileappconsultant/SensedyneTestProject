@@ -3,8 +3,8 @@ package com.android.sensyneapplication.ui
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.android.sensyneapplication.TestCoroutineRule
-import com.android.sensyneapplication.domain.search.QueryBuilder
 import com.android.sensyneapplication.domain.repository.HospitalItemsQueryRepository
+import com.android.sensyneapplication.domain.search.QueryBuilder
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import com.android.sensyneapplication.framework.domain.model.HospitalQueryResponse
 import com.android.sensyneapplication.presentation.MainViewModel
