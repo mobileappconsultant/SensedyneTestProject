@@ -1,13 +1,14 @@
-package com.android.sensyneapplication.domain.database_search
+package com.android.sensyneapplication.domain.search
 
 import com.android.sensyneapplication.domain.database.DBConstants
-import junit.framework.TestCase
+import junit.framework.TestCase.assertTrue
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class SearchEntryRegexProcessorTest : TestCase() {
+class SearchEntryRegexProcessorTest {
 
     var searchEntryRegexProcessor: SearchEntryRegexProcessor = SearchEntryRegexProcessor()
 

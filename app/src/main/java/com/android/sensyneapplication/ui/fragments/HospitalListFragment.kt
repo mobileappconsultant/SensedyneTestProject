@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+
 class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
 
     private lateinit var mainViewModel: MainViewModel
@@ -107,7 +108,6 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     private fun initialiseUIElements() {
 
         searchEditText.afterTextChangeEvents()
-            //  .filter { it.view.text.toString().length > MINIMUX_SEARCH_TEXT_LENGTH }
             .debounce(debouncePeriod, TimeUnit.MILLISECONDS)
             .subscribe {
                 if (it.view.text.isNotEmpty()) isSearching = true

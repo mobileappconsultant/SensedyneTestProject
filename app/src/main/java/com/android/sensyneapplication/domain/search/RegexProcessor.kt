@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.domain.database_search
+package com.android.sensyneapplication.domain.search
 interface RegexProcessor {
 
     /**

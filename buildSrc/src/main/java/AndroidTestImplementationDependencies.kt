@@ -10,7 +10,7 @@ object AndroidTestImplementationDependencies {
     private val mockito_core = "org.mockito:mockito-inline:${Versions.mockito_version}"
     val androidDebugImplentationLibraries = arrayListOf<String>().apply {
         add(TestImplementationDependencies.junit)
-        add(mockito_core)
+       // add(mockito_core)
         add(room_testing)
         add(dexmaker)
         add(TestImplementationDependencies.espressoCore)

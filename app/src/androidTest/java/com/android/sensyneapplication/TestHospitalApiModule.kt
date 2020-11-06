@@ -1,7 +1,7 @@
 package com.android.sensyneapplication
 
-import com.android.sensyneapplication.domain.database_search.QueryBuilder
-import com.android.sensyneapplication.domain.database_search.SearchEntryRegexProcessor
+import com.android.sensyneapplication.domain.search.QueryBuilder
+import com.android.sensyneapplication.domain.search.SearchEntryRegexProcessor
 import com.android.sensyneapplication.domain.mapper.HospitalResponseModelToRoomItemMapper
 import com.android.sensyneapplication.domain.mapper.RoomResponseToHospitalItemMapper
 import com.android.sensyneapplication.domain.remote.HospitalQueryService

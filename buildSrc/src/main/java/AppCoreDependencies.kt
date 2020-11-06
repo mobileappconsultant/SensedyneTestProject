@@ -40,11 +40,13 @@ object AppCoreDependencies {
     private val rxjava3 = "io.reactivex.rxjava3:rxjava:${Versions.rxjava3_version}"
     private val rxandroid = "io.reactivex.rxjava3:rxandroid:${Versions.rxandroid_version}"
     private val rxbinding = "com.jakewharton.rxbinding4:rxbinding:${Versions.rxbinding_version}"
-
+    private val pullToRefresh =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.pullToRefreshVersion}"
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
         add(timber)
         add(coreKtx)
+        add(pullToRefresh)
         add(constraintLayout)
         add(recyclerview)
         add(cardview)
