@@ -13,7 +13,7 @@ import com.android.sensyneapplication.common.EndlessRecyclerOnScrollListener
 import com.android.sensyneapplication.presentation.LoadingState
 import com.android.sensyneapplication.presentation.MainViewModel
 import com.android.sensyneapplication.ui.adapters.HospitalListAdapter
-import com.jakewharton.rxbinding4.widget.textChangeEvents
+import com.jakewharton.rxbinding4.widget.afterTextChangeEvents
 import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -106,12 +106,12 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
 
     private fun initialiseUIElements() {
 
-        searchEditText.textChangeEvents()
-            .filter { it.text.toString().length > MINIMUX_SEARCH_TEXT_LENGTH }
+        searchEditText.afterTextChangeEvents()
+            //  .filter { it.view.text.toString().length > MINIMUX_SEARCH_TEXT_LENGTH }
             .debounce(debouncePeriod, TimeUnit.MILLISECONDS)
             .subscribe {
-                if (it.text.isNotEmpty()) isSearching = true
-                mainViewModel.onSearchQuery(it.text.toString())
+                if (it.view.text.isNotEmpty()) isSearching = true
+                mainViewModel.onSearchQuery(it.view.text.toString())
             }
         hospitalListAdapter = HospitalListAdapter({ hospitalItem ->
             mainViewModel.onHospitalClicked(hospitalItem)

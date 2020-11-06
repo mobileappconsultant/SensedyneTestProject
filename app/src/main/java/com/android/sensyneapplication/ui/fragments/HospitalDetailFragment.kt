@@ -14,7 +14,8 @@ class HospitalDetailFragment : Fragment(R.layout.fragment_hospital_details) {
 
     private fun initialiseUIElements() {
         arguments?.let {
-            hospitalNameTextView.text = HospitalDetailFragmentArgs.fromBundle(it).hospitalName
+            var currentHospital = HospitalDetailFragmentArgs.fromBundle(it)
+            hospitalNameTextView.text = currentHospital.currentHospital.OrganisationName
         }
     }
 }

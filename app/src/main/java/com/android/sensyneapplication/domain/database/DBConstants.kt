@@ -54,8 +54,8 @@ object DBConstants {
         private const val REGEX_Address3 = DEFAULT_REGEX
         private const val REGEX_Address2 = DEFAULT_REGEX
         const val REGEX_Address1 = DEFAULT_REGEX
-        const val REGEX_OrganisationCode = "^[\\w.-]{5}"
-        const val OrganisationID = "[0-9]{4}"
+        const val REGEX_OrganisationCode = "\\b[a-zA-Z]{3}\\d{2}|[a-zA-Z]{2}\\d{3}\\b"
+        const val OrganisationID = "\\b\\d{5}\\b"
         const val REGEX_Website =
             "^((https?\\:\\/\\/)?([\\w\\d\\-]+\\.){2,}([\\w\\d]{2,})((\\/[\\w\\d\\-\\.]+)*(\\/[\\w\\d\\-]+\\.[\\w\\d]{3,4}(\\?.*)?)?)?)\$"
         const val REGEX_Email = "[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+"

@@ -1,10 +1,13 @@
 package com.android.sensyneapplication.framework.domain.model
 
+import android.os.Parcelable
 import com.android.sensyneapplication.domain.database.DBConstants
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class HospitalItem(
     @Json(name = DBConstants.ROOMTABLECONSTANTS.FIELD_Address1)
@@ -51,7 +54,7 @@ data class HospitalItem(
     val SubType: String?,
     @Json(name = DBConstants.ROOMTABLECONSTANTS.FIELD_Website)
     val Website: String?
-) {
+) : Parcelable {
     // this is messy
     // TODO IMPROVE THIS
     class HospitalItemAdapter {

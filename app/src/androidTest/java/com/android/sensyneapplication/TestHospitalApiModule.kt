@@ -1,5 +1,7 @@
 package com.android.sensyneapplication
 
+import com.android.sensyneapplication.domain.database_search.QueryBuilder
+import com.android.sensyneapplication.domain.database_search.SearchEntryRegexProcessor
 import com.android.sensyneapplication.domain.mapper.HospitalResponseModelToRoomItemMapper
 import com.android.sensyneapplication.domain.mapper.RoomResponseToHospitalItemMapper
 import com.android.sensyneapplication.domain.remote.HospitalQueryService
@@ -98,6 +100,10 @@ class TestHospitalApiModule(var application: TestSensyneApplication) {
     @Provides
     @Singleton
     fun provideHospitalReponseMapper() = HospitalResponseModelToRoomItemMapper()
+
+    @Provides
+    @Singleton
+    fun providesQueryBuilder() = QueryBuilder(SearchEntryRegexProcessor())
 
     @Provides
     @Singleton

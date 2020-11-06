@@ -1,20 +1,20 @@
 package com.android.sensyneapplication.domain.database_search
 
 import com.android.sensyneapplication.domain.database.DBConstants
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import junit.framework.TestCase
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class SearchEntryRegexProcessorTest {
+class SearchEntryRegexProcessorTest : TestCase() {
 
     var searchEntryRegexProcessor: SearchEntryRegexProcessor = SearchEntryRegexProcessor()
 
     @Test
     fun checkOrganizationCodeMatches_Pass() {
-        val organizationCode = "5P603"
+
+        val organizationCode = "NLL20"
         assertEquals(
             searchEntryRegexProcessor.process(organizationCode).first(),
             DBConstants.ROOMTABLECONSTANTS.FIELD_OrganisationCode
@@ -145,7 +145,7 @@ class SearchEntryRegexProcessorTest {
 
     @Test
     fun checkOrganiationIdMatches_Pass() {
-        val organizationId = "1611"
+        val organizationId = "16131"
         assertEquals(
             searchEntryRegexProcessor.process(organizationId).first(),
             DBConstants.ROOMTABLECONSTANTS.FIELD_OrganisationID

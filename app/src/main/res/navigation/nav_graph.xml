@@ -26,8 +26,8 @@
         tools:layout="@layout/fragment_hospital_details">
 
         <argument
-            android:name="hospital_name"
-            app:argType="string" />
+            android:name="currentHospital"
+            app:argType="com.android.sensyneapplication.framework.domain.model.HospitalItem" />
 
     </fragment>
 </navigation>

@@ -1,5 +1,10 @@
 package com.android.sensyneapplication.presentation
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.android.sensyneapplication.domain.database_search.QueryBuilder
 import com.android.sensyneapplication.domain.repository.HospitalItemsQueryRepository
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
@@ -22,12 +27,12 @@ class MainViewModel @Inject constructor(
     private var hospitalQueryResponse = emptyList<HospitalItem>()
     val hospitalsLoadingStateLiveData = MutableLiveData<LoadingState>()
     private val _searchFieldTextLiveData = MutableLiveData<String>()
-    private val _navigateToDetails = MutableLiveData<Event<String>>()
+    private val _navigateToDetails = MutableLiveData<Event<HospitalItem>>()
     private val MAX_NUMBER_OF_ITEMS = 10
     private var numberOfPageRequests = 0
-    private val START_INDEX=0
+    private val START_INDEX = 0
     private var subListsOfHospitalResponse: List<List<HospitalItem>> = emptyList()
-    val navigateToDetails: LiveData<Event<String>>
+    val navigateToDetails: LiveData<Event<HospitalItem>>
         get() = _navigateToDetails
 
     init {
@@ -109,9 +114,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun onHospitalClicked(hospitalItem: HospitalItem) {
-        hospitalItem.Address1?.let {
-            _navigateToDetails.value = Event(it)
-        }
+        _navigateToDetails.value = Event(hospitalItem)
     }
 
     override fun onCleared() {

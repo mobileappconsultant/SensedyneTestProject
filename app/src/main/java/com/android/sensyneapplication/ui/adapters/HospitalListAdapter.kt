@@ -3,10 +3,8 @@ package com.android.sensyneapplication.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.android.sensyneapplication.R
-import com.android.sensyneapplication.SensyneApplication
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import kotlinx.android.synthetic.main.view_hospital_item.view.*
 
@@ -35,7 +33,7 @@ class HospitalListAdapter(
 
             itemView.setOnClickListener {
                 hospitalItem?.let {
-                    //    adapterOnClick.invoke(it)
+                    adapterOnClick.invoke(it)
                 }
             }
         }
