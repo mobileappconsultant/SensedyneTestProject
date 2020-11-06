@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.framework.domain
+package com.android.sensyneapplication.domain.remote
 
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import kotlinx.coroutines.Deferred

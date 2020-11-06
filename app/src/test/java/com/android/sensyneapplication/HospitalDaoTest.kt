@@ -38,6 +38,22 @@ open class HospitalDaoTest : DatabaseTest() {
         appDatabase.hospitalDao()
             .insertHospital(mutableListOf(roomHospitalItem))
         appDatabase.hospitalDao().deleteHospitalEntry(roomHospitalItem)
-        Assert.assertEquals(appDatabase.hospitalDao().retrieveAllHospitals().size, predefinedEntrySize)
+        Assert.assertEquals(
+            appDatabase.hospitalDao().retrieveAllHospitals().size,
+            predefinedEntrySize
+        )
+    }
+
+    @Test
+    fun deleteAllHospitalEntryTest() {
+        val predefinedEntrySize = 100
+        val roomHospitalItems = HospitalDataFactory.makeListOfRoomHospital(predefinedEntrySize)
+        appDatabase.hospitalDao()
+            .insertHospital(roomHospitalItems)
+        appDatabase.hospitalDao().deleteAll()
+        Assert.assertEquals(
+            appDatabase.hospitalDao().retrieveAllHospitals().size,
+            0
+        )
     }
 }

@@ -2,8 +2,8 @@ package com.android.sensyneapplication
 
 import android.app.Application
 import com.android.sensyneapplication.di.AppComponent
-import com.android.sensyneapplication.di.module.AppModule
 import com.android.sensyneapplication.di.DaggerAppComponent
+import com.android.sensyneapplication.di.module.AppModule
 import com.android.sensyneapplication.di.module.HospitalApiModule
 import timber.log.Timber
 

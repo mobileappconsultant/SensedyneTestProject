@@ -1,6 +1,6 @@
-package com.android.sensyneapplication.domain.model
+package com.android.sensyneapplication.domain.mapper
 
-import com.android.sensyneapplication.domain.ModelMapper
+import com.android.sensyneapplication.domain.model.RoomHospitalItem
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 
 class RoomResponseToHospitalItemMapper : ModelMapper<RoomHospitalItem, HospitalItem> {

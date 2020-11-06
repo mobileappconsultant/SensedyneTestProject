@@ -3,7 +3,7 @@ package com.android.sensyneapplication
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.android.sensyneapplication.domain.AppDatabase
+import com.android.sensyneapplication.domain.database.AppDatabase
 import org.junit.After
 import org.junit.Before
 import org.junit.runner.RunWith

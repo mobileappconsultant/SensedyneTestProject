@@ -3,8 +3,8 @@ package com.android.sensyneapplication.di
 import com.android.sensyneapplication.di.module.AppModule
 import com.android.sensyneapplication.di.module.DatabaseModule
 import com.android.sensyneapplication.di.module.HospitalApiModule
-import com.android.sensyneapplication.ui.activities.MainActivity
 import com.android.sensyneapplication.di.module.ViewModelModule
+import com.android.sensyneapplication.ui.activities.MainActivity
 import com.android.sensyneapplication.ui.fragments.HospitalListFragment
 import dagger.Component
 import javax.inject.Singleton

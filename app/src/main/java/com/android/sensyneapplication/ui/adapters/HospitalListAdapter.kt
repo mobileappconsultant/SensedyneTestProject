@@ -24,7 +24,7 @@ class HospitalListAdapter(
     }
 
     fun updateData(newData: List<HospitalItem?>) {
-        // data.clear()
+        data.clear()
         data.addAll(newData)
         notifyDataSetChanged()
     }

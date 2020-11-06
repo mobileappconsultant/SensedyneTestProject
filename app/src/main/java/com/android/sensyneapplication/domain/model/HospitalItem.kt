@@ -1,6 +1,6 @@
 package com.android.sensyneapplication.framework.domain.model
 
-import com.android.sensyneapplication.domain.DBConstants
+import com.android.sensyneapplication.domain.database.DBConstants
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -29,7 +29,7 @@ data class HospitalItem(
     val Longitude: String?,
     @Json(name = DBConstants.ROOMTABLECONSTANTS.FIELD_OrganisationCode)
     val OrganisationCode: String?,
-    @Json(name = DBConstants.ROOMTABLECONSTANTS.OrganisationID)
+    @Json(name = DBConstants.ROOMTABLECONSTANTS.FIELD_OrganisationID)
     val OrganisationID: String?,
     @Json(name = DBConstants.ROOMTABLECONSTANTS.FIELD_OrganisationName)
     val OrganisationName: String?,

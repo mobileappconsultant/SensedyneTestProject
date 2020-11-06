@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.android.sensyneapplication.ui.activities.MainActivity
 import com.android.sensyneapplication.presentation.MainViewModel
+import com.android.sensyneapplication.ui.activities.MainActivity
 import com.zavamed.makeitfree.TestSensyneApplication
 import org.junit.After
 import org.junit.Before

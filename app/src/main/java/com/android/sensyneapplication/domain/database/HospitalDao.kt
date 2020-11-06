@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.domain
+package com.android.sensyneapplication.domain.database
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -21,6 +21,8 @@ interface HospitalDao {
     @Delete
     fun deleteHospitalEntry(quote: RoomHospitalItem): Int
 
+    @Query("DELETE FROM RoomHospitalItem")
+    fun deleteAll()
     /*
        *
        * Insert a list in the database. If the item already exists, replace it.

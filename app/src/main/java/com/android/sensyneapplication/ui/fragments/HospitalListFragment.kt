@@ -12,9 +12,9 @@ import com.android.sensyneapplication.R
 import com.android.sensyneapplication.SensyneApplication.Companion.application
 import com.android.sensyneapplication.common.ConnectivityLiveData
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
+import com.android.sensyneapplication.presentation.LoadingState
 import com.android.sensyneapplication.presentation.MainViewModel
 import com.android.sensyneapplication.ui.adapters.HospitalListAdapter
-import com.android.sensyneapplication.presentation.LoadingState
 import com.jakewharton.rxbinding4.widget.textChangeEvents
 import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import java.util.concurrent.TimeUnit
@@ -26,7 +26,7 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     private lateinit var hospitalListAdapter: HospitalListAdapter
     private lateinit var connectivityLiveData: ConnectivityLiveData
     private var isLoading: Boolean = false
-    private var debouncePeriod: Long = 500
+    private val debouncePeriod: Long = 500
     private val MINIMUX_SEARCH_TEXT_LENGTH = 2
 
     @Inject

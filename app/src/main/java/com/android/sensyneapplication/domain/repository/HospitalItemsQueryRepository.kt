@@ -1,10 +1,11 @@
-package com.android.sensyneapplication.framework.domain
+package com.android.sensyneapplication.domain.repository
 
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.android.sensyneapplication.domain.HospitalDao
-import com.android.sensyneapplication.domain.model.HospitalResponseModelToRoomItemMapper
+import com.android.sensyneapplication.domain.database.HospitalDao
+import com.android.sensyneapplication.domain.mapper.HospitalResponseModelToRoomItemMapper
+import com.android.sensyneapplication.domain.mapper.RoomResponseToHospitalItemMapper
 import com.android.sensyneapplication.domain.model.RoomHospitalItem
-import com.android.sensyneapplication.domain.model.RoomResponseToHospitalItemMapper
+import com.android.sensyneapplication.domain.remote.HospitalQueryService
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import javax.inject.Inject
 
@@ -17,6 +18,7 @@ open class HospitalItemsQueryRepository @Inject constructor(
     Repository {
 
     override suspend fun retrieveHospitals(): List<HospitalItem>? {
+        hospitalDao.deleteAll()
         val deferredResponse = hospitalQueryService.retrieveAllHospitals().await()
         return if (deferredResponse.isSuccessful) {
             val listOfHospitals = deferredResponse.body()

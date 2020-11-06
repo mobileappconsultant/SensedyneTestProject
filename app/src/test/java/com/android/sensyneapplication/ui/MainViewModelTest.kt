@@ -3,7 +3,8 @@ package com.android.sensyneapplication.ui
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.android.sensyneapplication.TestCoroutineRule
-import com.android.sensyneapplication.framework.domain.HospitalItemsQueryRepository
+import com.android.sensyneapplication.domain.database_search.QueryBuilder
+import com.android.sensyneapplication.domain.repository.HospitalItemsQueryRepository
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import com.android.sensyneapplication.framework.domain.model.HospitalQueryResponse
 import com.android.sensyneapplication.presentation.MainViewModel
@@ -32,6 +33,9 @@ class MainViewModelTest : TestCase() {
     lateinit var repository: HospitalItemsQueryRepository
 
     @Mock
+    lateinit var queryBuilder: QueryBuilder
+
+    @Mock
     private lateinit var hospitalItemObserver: Observer<Resource<List<HospitalItem>>>
 
     @Test
@@ -44,7 +48,7 @@ class MainViewModelTest : TestCase() {
             doReturn(HospitalQueryResponse(emptyList()).hospitals)
                 .`when`(repository)
                 .retrieveHospitals()
-            val viewModel = MainViewModel(repository)
+            val viewModel = MainViewModel(repository, queryBuilder)
             viewModel.fetchHospitals()
             viewModel.hospitalsLoadingStateLiveData.observeForever { hospitalItemObserver }
 
@@ -66,7 +70,7 @@ class MainViewModelTest : TestCase() {
             doReturn(Exception())
                 .`when`(repository)
                 .retrieveHospitals()
-            val viewModel = MainViewModel(repository)
+            val viewModel = MainViewModel(repository, queryBuilder)
             viewModel.fetchHospitals()
             viewModel.hospitalsLoadingStateLiveData.observeForever { hospitalItemObserver }
 

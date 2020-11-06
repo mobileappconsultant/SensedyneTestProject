@@ -1,9 +1,11 @@
 package com.android.sensyneapplication.di.module
 
 import com.android.sensyneapplication.BuildConfig
-import com.android.sensyneapplication.domain.model.HospitalResponseModelToRoomItemMapper
-import com.android.sensyneapplication.domain.model.RoomResponseToHospitalItemMapper
-import com.android.sensyneapplication.framework.domain.HospitalQueryService
+import com.android.sensyneapplication.domain.database_search.QueryBuilder
+import com.android.sensyneapplication.domain.database_search.SearchEntryRegexProcessor
+import com.android.sensyneapplication.domain.mapper.HospitalResponseModelToRoomItemMapper
+import com.android.sensyneapplication.domain.mapper.RoomResponseToHospitalItemMapper
+import com.android.sensyneapplication.domain.remote.HospitalQueryService
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
@@ -69,6 +71,10 @@ class HospitalApiModule {
     @Provides
     @Singleton
     fun provideHospitalReponseMapper() = HospitalResponseModelToRoomItemMapper()
+
+    @Provides
+    @Singleton
+    fun providesQueryBuilder() = QueryBuilder(SearchEntryRegexProcessor())
 
     @Provides
     @Singleton

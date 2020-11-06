@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.domain
+package com.android.sensyneapplication.domain.mapper
 
 interface ModelMapper<in M, out E> {
     fun mapFromModel(model: M): E

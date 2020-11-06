@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.framework.domain
+package com.android.sensyneapplication.domain.repository
 
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.android.sensyneapplication.framework.domain.model.HospitalItem

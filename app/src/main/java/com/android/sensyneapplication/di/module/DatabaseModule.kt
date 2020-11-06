@@ -1,8 +1,8 @@
 package com.android.sensyneapplication.di.module
 
 import android.app.Application
-import com.android.sensyneapplication.domain.AppDatabase
-import com.android.sensyneapplication.domain.HospitalDao
+import com.android.sensyneapplication.domain.database.AppDatabase
+import com.android.sensyneapplication.domain.database.HospitalDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -3,7 +3,7 @@ package com.android.sensyneapplication.domain.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.android.sensyneapplication.domain.DBConstants
+import com.android.sensyneapplication.domain.database.DBConstants
 import java.util.UUID
 
 @Entity(tableName = DBConstants.ROOMTABLECONSTANTS.TABLE_NAME)
@@ -30,7 +30,7 @@ class RoomHospitalItem(
     val Longitude: String?,
     @field:ColumnInfo(name = DBConstants.ROOMTABLECONSTANTS.FIELD_OrganisationCode)
     val OrganisationCode: String?,
-    @field:ColumnInfo(name = DBConstants.ROOMTABLECONSTANTS.OrganisationID)
+    @field:ColumnInfo(name = DBConstants.ROOMTABLECONSTANTS.FIELD_OrganisationID)
     val OrganisationID: String?,
     @field:ColumnInfo(name = DBConstants.ROOMTABLECONSTANTS.FIELD_OrganisationName)
     val OrganisationName: String?,
