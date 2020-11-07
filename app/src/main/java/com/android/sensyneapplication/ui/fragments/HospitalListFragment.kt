@@ -14,9 +14,11 @@ import com.android.sensyneapplication.common.ConnectivityLiveData
 import com.android.sensyneapplication.common.EndlessRecyclerOnScrollListener
 import com.android.sensyneapplication.presentation.LoadingState
 import com.android.sensyneapplication.presentation.MainViewModel
+import com.android.sensyneapplication.presentation.SearchAction
 import com.android.sensyneapplication.presentation.adapters.ClickActions
 import com.android.sensyneapplication.presentation.adapters.HospitalListAdapter
 import com.jakewharton.rxbinding4.widget.afterTextChangeEvents
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -29,7 +31,6 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     private lateinit var connectivityLiveData: ConnectivityLiveData
     private var isLoading: Boolean = false
     private val debouncePeriod: Long = 500
-    private val MINIMUX_SEARCH_TEXT_LENGTH = 2
     private var isSearching = false
 
     @Inject
@@ -49,6 +50,7 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
             object : EndlessRecyclerOnScrollListener() {
                 override fun onLoadMore() {
                     if (isSearching) return
+                    isLoading = true
                     mainViewModel.loadMoreData()
                 }
             }
@@ -158,12 +160,20 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     }
 
     private fun initialiseUIElements() {
-
-        searchEditText.afterTextChangeEvents()
-            .debounce(debouncePeriod, TimeUnit.MILLISECONDS)
+        searchEditText.afterTextChangeEvents().skipInitialValue()
+            .debounce(debouncePeriod, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
+            //when text is greater than 2
+            //when user stops typing -> restore->
             .subscribe {
-                if (it.view.text.isNotEmpty()) isSearching = true
-                mainViewModel.onSearchQuery(it.view.text.toString())
+                //  if (it.view.text.isNotEmpty()) isSearching = true
+                if (it.view.text.toString().length > 2) {
+                    isSearching = true
+                    mainViewModel.onSearchQuery(SearchAction.UserTypingAction(it.view.text.toString()))
+                } else {
+                    isSearching = false
+                    mainViewModel.onSearchQuery(SearchAction.NoSearchStringAction())
+                }
+                // mainViewModel.onSearchQuery(it.view.text.toString())
             }
         hospitalListAdapter = HospitalListAdapter({ hospitalItem ->
             mainViewModel.onHospitalClicked(hospitalItem)
@@ -180,8 +190,10 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
                 statusButton.visibility = View.GONE
                 hospitalsRecyclerView.visibility = View.GONE
                 loadingProgressBar.visibility = View.VISIBLE
+                searchEditText.isEnabled=false
             }
             LoadingState.LOADED -> {
+                searchEditText.isEnabled=true
                 connectivityLiveData.value?.let {
                     if (it) {
                         statusButton.visibility = View.GONE
