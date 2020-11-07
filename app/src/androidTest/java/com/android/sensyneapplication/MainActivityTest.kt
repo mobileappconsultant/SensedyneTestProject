@@ -48,13 +48,12 @@ class MainActivityTest {
 
             mainViewModel =
                 ViewModelProvider(activity, viewModelFactory).get(MainViewModel::class.java)
-          /*  mainViewModel.onFragmentReady()*/
         }
     }
 
 
     @After
     fun tearDown() {
-        // IdlingRegistry.getInstance().unregister(loadingIdlingResource)
+         IdlingRegistry.getInstance().unregister(loadingIdlingResource)
     }
 }
