@@ -1,4 +1,4 @@
-package com.android.sensyneapplication.ui.adapters
+package com.android.sensyneapplication.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.sensyneapplication.R
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
+import com.jakewharton.rxbinding4.view.clicks
 import kotlinx.android.synthetic.main.view_hospital_item.view.*
 
 class HospitalListAdapter(
-    val adapterOnClick: (HospitalItem) -> Unit
+    val adapterOnClick: (ClickActions) -> Unit
 ) :
     RecyclerView.Adapter<HospitalListAdapter.HospitalItemViewHolder>() {
 
     private var data = mutableListOf<HospitalItem?>()
-
+    private lateinit var currentActions: ClickActions
     fun updateData(newData: List<HospitalItem?>) {
         data.clear()
         data.addAll(newData)
@@ -29,12 +30,23 @@ class HospitalListAdapter(
                 itemView.primary_text.text = this?.ParentName
                 itemView.sub_text.text = this?.OrganisationName
                 itemView.supporting_text.text = this?.buildAddress
-            }
 
-            itemView.setOnClickListener {
-                hospitalItem?.let {
-                    adapterOnClick.invoke(it)
+                itemView.clicks()
+                    .subscribe { adapterOnClick.invoke(ClickActions.MainAction(hospitalItem)) }
+                itemView.phone_action.clicks()
+                    .subscribe { adapterOnClick.invoke(ClickActions.PhoneAction(hospitalItem?.Phone)) }
+                itemView.email_action.clicks()
+                    .subscribe { adapterOnClick.invoke(ClickActions.EmailAction(hospitalItem?.Email)) }
+                itemView.location_action.clicks().subscribe {
+                    adapterOnClick.invoke(
+                        ClickActions.LocationAction(
+                            hospitalItem?.Latitude,
+                            hospitalItem?.Longitude
+                        )
+                    )
                 }
+                itemView.web_action.clicks()
+                    .subscribe { adapterOnClick.invoke(ClickActions.WebAction(hospitalItem?.Website)) }
             }
         }
     }

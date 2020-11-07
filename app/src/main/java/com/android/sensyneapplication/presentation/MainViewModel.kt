@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.android.sensyneapplication.domain.repository.HospitalItemsQueryRepository
 import com.android.sensyneapplication.domain.search.QueryBuilder
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
+import com.android.sensyneapplication.presentation.adapters.ClickActions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -27,12 +28,12 @@ class MainViewModel @Inject constructor(
     private var hospitalQueryResponse = emptyList<HospitalItem>()
     val hospitalsLoadingStateLiveData = MutableLiveData<LoadingState>()
     private val _searchFieldTextLiveData = MutableLiveData<String>()
-    private val _navigateToDetails = MutableLiveData<Event<HospitalItem>>()
+    private val _navigateToDetails = MutableLiveData<Event<ClickActions>>()
     private val MAX_NUMBER_OF_ITEMS = 10
     private var numberOfPageRequests = 0
     private val START_INDEX = 0
     private var subListsOfHospitalResponse: List<List<HospitalItem>> = emptyList()
-    val navigateToDetails: LiveData<Event<HospitalItem>>
+    val navigateToDetails: LiveData<Event<ClickActions>>
         get() = _navigateToDetails
 
     init {
@@ -113,8 +114,8 @@ class MainViewModel @Inject constructor(
         return liveData
     }
 
-    fun onHospitalClicked(hospitalItem: HospitalItem) {
-        _navigateToDetails.value = Event(hospitalItem)
+    fun onHospitalClicked(clickActions: ClickActions) {
+        _navigateToDetails.value = Event(clickActions)
     }
 
     override fun onCleared() {

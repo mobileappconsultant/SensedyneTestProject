@@ -1,5 +1,7 @@
 package com.android.sensyneapplication.ui.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -12,11 +14,13 @@ import com.android.sensyneapplication.common.ConnectivityLiveData
 import com.android.sensyneapplication.common.EndlessRecyclerOnScrollListener
 import com.android.sensyneapplication.presentation.LoadingState
 import com.android.sensyneapplication.presentation.MainViewModel
-import com.android.sensyneapplication.ui.adapters.HospitalListAdapter
+import com.android.sensyneapplication.presentation.adapters.ClickActions
+import com.android.sensyneapplication.presentation.adapters.HospitalListAdapter
 import com.jakewharton.rxbinding4.widget.afterTextChangeEvents
 import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+
 
 class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
 
@@ -95,13 +99,62 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
         mainViewModel.navigateToDetails.observe(
             viewLifecycleOwner,
             {
-                it?.getContentIfNotHandled()?.let { hospitalTitle ->
-                    findNavController().navigate(
-                        HospitalListFragmentDirections.hospitalItemClicked(hospitalTitle)
-                    )
+                it?.getContentIfNotHandled()?.let { clickAction ->
+                    when (clickAction) {
+                        is ClickActions.PhoneAction -> {
+                            clickAction.phoneNumber?.let { dialPhoneNumber(it) }
+                        }
+                        is ClickActions.WebAction -> {
+                            clickAction.webAddress?.let {
+                                val browserIntent =
+                                    Intent(Intent.ACTION_VIEW, Uri.parse(clickAction.webAddress))
+                                startActivity(browserIntent)
+                            }
+
+
+                        }
+                        is ClickActions.EmailAction -> {
+                            clickAction.emailAddress?.let {
+                                var intent = Intent(
+                                    Intent.ACTION_SENDTO,
+                                    Uri.parse("mailto:".plus(clickAction.emailAddress))
+                                )
+                                activity?.startActivity(intent)
+                            }
+                        }
+                        is ClickActions.LocationAction -> {
+                            if (!clickAction.longitude.isNullOrEmpty() && !clickAction.longitude.isNullOrEmpty()) {
+                                var geoString =
+                                    "geo:${clickAction.latitude},${clickAction.longitude}"
+                                val gmmIntentUri = Uri.parse(geoString)
+                                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                                mapIntent.setPackage("com.google.android.apps.maps")
+                                startActivity(mapIntent)
+                            }
+
+                        }
+                        is ClickActions.MainAction -> {
+                            clickAction.hospitalItem?.let {
+                                findNavController().navigate(
+                                    HospitalListFragmentDirections.hospitalItemClicked(it)
+                                )
+                            }
+                        }
+                    }
+
                 }
             }
         )
+    }
+
+
+    private fun dialPhoneNumber(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber")
+        }
+        intent.resolveActivity(activity?.packageManager!!)?.let {
+            startActivity(intent)
+        }
     }
 
     private fun initialiseUIElements() {

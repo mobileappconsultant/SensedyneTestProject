@@ -55,9 +55,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/action_button_1" />
 
-        <Button
+        <ImageButton
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:id="@+id/action_button_1"
+            android:id="@+id/phone_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -65,20 +65,40 @@
             android:minWidth="0dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
+            android:src="@drawable/ic_baseline_phone_24"
             android:textColor="#DE000000"
             app:layout_constraintTop_toBottomOf="@+id/supporting_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-        <Button
+        <ImageButton
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:id="@+id/action_button_2"
+            android:id="@+id/email_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textColor="#DE000000"
-            app:layout_constraintTop_toTopOf="@+id/action_button_1"
-            app:layout_constraintStart_toEndOf="@+id/action_button_1" />
+            android:src="@drawable/ic_baseline_email_24"
+            app:layout_constraintTop_toTopOf="@+id/phone_action"
+            app:layout_constraintStart_toEndOf="@+id/phone_action" />
+        <ImageButton
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/location_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_baseline_location_on_24"
+            app:layout_constraintTop_toTopOf="@+id/email_action"
+            app:layout_constraintStart_toEndOf="@+id/email_action" />
+
+        <ImageButton
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/web_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_baseline_web_24"
+            app:layout_constraintTop_toTopOf="@+id/location_action"
+            app:layout_constraintStart_toEndOf="@+id/location_action" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
