@@ -7,7 +7,7 @@
 ## Features 🎨
 
 - **100% Kotlin-only project**.
--  Espresso,Mockwebserver Api Integration,Dagger2,Okhttp,RxBinding4,Rxjava3 Instrumentation & JUnit tests.
+-  Espresso,Mockwebserver REST Api Integration,Dagger2,Moshi,AndroidX,MVVM,Okhttp,RxBinding4,Rxjava3 Instrumentation & JUnit tests.
 - 100% Gradle Kotlin DSL setup.
 - Dependency versions managed via `buildSrc`.
 - CI Setup with GitHub Actions.
@@ -25,6 +25,7 @@
 - Better arrangement of information current recyclerview
 - Finishing adding PullToRefresh
 - More robust regex testing
+- Make a better UI
 
 
 ## Gradle Setup 🐘
