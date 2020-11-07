@@ -11,7 +11,7 @@ object Versions {
     const val rxandroid_version = "3.0.0"
     const val rxbinding_version = "4.0.0"
     const val pullToRefreshVersion = "1.1.0"
-
+    const val fragment_version = "1.2.5"
     //Navigation
     const val navigation_fragment_ktx_version = "2.3.1"
     const val navigation_ui_ktx_version = navigation_fragment_ktx_version

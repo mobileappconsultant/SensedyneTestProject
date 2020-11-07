@@ -19,6 +19,7 @@ import com.android.sensyneapplication.presentation.adapters.ClickActions
 import com.android.sensyneapplication.presentation.adapters.HospitalListAdapter
 import com.jakewharton.rxbinding4.widget.afterTextChangeEvents
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -31,7 +32,7 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     private var isLoading: Boolean = false
     private val debouncePeriod: Long = 500
     private var isSearching = false
-
+    private  var compositeDisposable: CompositeDisposable = CompositeDisposable()
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -159,21 +160,17 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     }
 
     private fun initialiseUIElements() {
-        searchEditText.afterTextChangeEvents().skipInitialValue()
+       val disposable = searchEditText.afterTextChangeEvents().skipInitialValue()
             .debounce(debouncePeriod, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
-            // when text is greater than 2
-            // when user stops typing -> restore->
             .subscribe {
-                //  if (it.view.text.isNotEmpty()) isSearching = true
-                if (it.view.text.toString().length > 2) {
+                   if (it.view.text.toString().length > 2) {
                     isSearching = true
                     mainViewModel.onSearchQuery(SearchAction.UserTypingAction(it.view.text.toString()))
                 } else {
                     isSearching = false
                     mainViewModel.onSearchQuery(SearchAction.NoSearchStringAction())
                 }
-                // mainViewModel.onSearchQuery(it.view.text.toString())
             }
         hospitalListAdapter = HospitalListAdapter({ hospitalItem ->
             mainViewModel.onHospitalClicked(hospitalItem)
@@ -182,6 +179,7 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
             adapter = hospitalListAdapter
             hasFixedSize()
         }
+        compositeDisposable.add(disposable)
     }
 
     private fun onHospitalLoadingState(state: LoadingState) {
@@ -226,5 +224,10 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
                 loadingProgressBar.visibility = View.GONE
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.clear()
     }
 }
