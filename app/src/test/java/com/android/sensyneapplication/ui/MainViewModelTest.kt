@@ -1,5 +1,6 @@
 package com.android.sensyneapplication.ui
 
+import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.android.sensyneapplication.TestCoroutineRule
@@ -19,9 +20,11 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.doReturn
 import org.mockito.junit.MockitoJUnitRunner
+import org.robolectric.annotation.Config
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
+@Config(sdk = [Build.VERSION_CODES.O_MR1], manifest = Config.NONE)
 class MainViewModelTest : TestCase() {
     @get:Rule
     val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()

@@ -4,30 +4,30 @@ import com.android.sensyneapplication.domain.model.RoomHospitalItem
 import com.android.sensyneapplication.framework.domain.model.HospitalItem
 
 class HospitalResponseModelToRoomItemMapper : ModelMapper<HospitalItem, RoomHospitalItem> {
-    override fun mapFromModel(hospitalItem: HospitalItem): RoomHospitalItem {
+    override fun mapFromModel(model: HospitalItem): RoomHospitalItem {
         return RoomHospitalItem(
-            hospitalItem.Address1,
-            hospitalItem.Address2,
-            hospitalItem.Address3,
-            hospitalItem.City,
-            hospitalItem.County,
-            hospitalItem.Email,
-            hospitalItem.Fax,
-            hospitalItem.IsPimsManaged,
-            hospitalItem.Latitude,
-            hospitalItem.Longitude,
-            hospitalItem.OrganisationCode,
-            hospitalItem.OrganisationID,
-            hospitalItem.OrganisationName,
-            hospitalItem.OrganisationStatus,
-            hospitalItem.OrganisationType,
-            hospitalItem.ParentName,
-            hospitalItem.ParentODSCode,
-            hospitalItem.Phone,
-            hospitalItem.Postcode,
-            hospitalItem.Sector,
-            hospitalItem.SubType,
-            hospitalItem.Website
+            model.Address1,
+            model.Address2,
+            model.Address3,
+            model.City,
+            model.County,
+            model.Email,
+            model.Fax,
+            model.IsPimsManaged,
+            model.Latitude,
+            model.Longitude,
+            model.OrganisationCode,
+            model.OrganisationID,
+            model.OrganisationName,
+            model.OrganisationStatus,
+            model.OrganisationType,
+            model.ParentName,
+            model.ParentODSCode,
+            model.Phone,
+            model.Postcode,
+            model.Sector,
+            model.SubType,
+            model.Website
         )
     }
 }

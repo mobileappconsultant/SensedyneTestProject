@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(
     private val MAX_NUMBER_OF_ITEMS = 10
     private var numberOfPageRequests = 0
     private val START_INDEX = 0
-    private var  saveCurrentState: List<HospitalItem> = emptyList()
+    private var saveCurrentState: List<HospitalItem> = emptyList()
     private var subListsOfHospitalResponse: List<List<HospitalItem>> = emptyList()
     val navigateToDetails: LiveData<Event<ClickActions>>
         get() = _navigateToDetails
@@ -63,7 +63,7 @@ class MainViewModel @Inject constructor(
 
     fun onSearchQuery(searchAction: SearchAction) {
         searchJob?.cancel()
-        if(searchAction is SearchAction.NoSearchStringAction){
+        if (searchAction is SearchAction.NoSearchStringAction) {
             _hospitalListLiveData.postValue(saveCurrentState)
             return
         }

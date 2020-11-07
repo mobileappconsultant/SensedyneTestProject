@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-
 class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
 
     private lateinit var mainViewModel: MainViewModel
@@ -102,53 +101,53 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
             viewLifecycleOwner,
             {
                 it?.getContentIfNotHandled()?.let { clickAction ->
-                    when (clickAction) {
-                        is ClickActions.PhoneAction -> {
-                            clickAction.phoneNumber?.let { dialPhoneNumber(it) }
-                        }
-                        is ClickActions.WebAction -> {
-                            clickAction.webAddress?.let {
-                                val browserIntent =
-                                    Intent(Intent.ACTION_VIEW, Uri.parse(clickAction.webAddress))
-                                startActivity(browserIntent)
-                            }
 
-
-                        }
-                        is ClickActions.EmailAction -> {
-                            clickAction.emailAddress?.let {
-                                var intent = Intent(
-                                    Intent.ACTION_SENDTO,
-                                    Uri.parse("mailto:".plus(clickAction.emailAddress))
-                                )
-                                activity?.startActivity(intent)
-                            }
-                        }
-                        is ClickActions.LocationAction -> {
-                            if (!clickAction.longitude.isNullOrEmpty() && !clickAction.longitude.isNullOrEmpty()) {
-                                var geoString =
-                                    "geo:${clickAction.latitude},${clickAction.longitude}"
-                                val gmmIntentUri = Uri.parse(geoString)
-                                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                                mapIntent.setPackage("com.google.android.apps.maps")
-                                startActivity(mapIntent)
-                            }
-
-                        }
-                        is ClickActions.MainAction -> {
-                            clickAction.hospitalItem?.let {
-                                findNavController().navigate(
-                                    HospitalListFragmentDirections.hospitalItemClicked(it)
-                                )
-                            }
-                        }
-                    }
-
+                    resolveClickAction(clickAction)
                 }
             }
         )
     }
 
+    private fun resolveClickAction(clickAction: ClickActions) {
+        when (clickAction) {
+            is ClickActions.PhoneAction -> {
+                clickAction.phoneNumber?.let { dialPhoneNumber(it) }
+            }
+            is ClickActions.WebAction -> {
+                clickAction.webAddress?.let {
+                    val browserIntent =
+                        Intent(Intent.ACTION_VIEW, Uri.parse(clickAction.webAddress))
+                    startActivity(browserIntent)
+                }
+            }
+            is ClickActions.EmailAction -> {
+                clickAction.emailAddress?.let {
+                    var intent = Intent(
+                        Intent.ACTION_SENDTO,
+                        Uri.parse("mailto:".plus(clickAction.emailAddress))
+                    )
+                    activity?.startActivity(intent)
+                }
+            }
+            is ClickActions.LocationAction -> {
+                if (!clickAction.longitude.isNullOrEmpty() && !clickAction.longitude.isNullOrEmpty()) {
+                    var geoString =
+                        "geo:${clickAction.latitude},${clickAction.longitude}"
+                    val gmmIntentUri = Uri.parse(geoString)
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    mapIntent.setPackage("com.google.android.apps.maps")
+                    startActivity(mapIntent)
+                }
+            }
+            is ClickActions.MainAction -> {
+                clickAction.hospitalItem?.let {
+                    findNavController().navigate(
+                        HospitalListFragmentDirections.hospitalItemClicked(it)
+                    )
+                }
+            }
+        }
+    }
 
     private fun dialPhoneNumber(phoneNumber: String) {
         val intent = Intent(Intent.ACTION_DIAL).apply {
@@ -161,9 +160,10 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
 
     private fun initialiseUIElements() {
         searchEditText.afterTextChangeEvents().skipInitialValue()
-            .debounce(debouncePeriod, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
-            //when text is greater than 2
-            //when user stops typing -> restore->
+            .debounce(debouncePeriod, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            // when text is greater than 2
+            // when user stops typing -> restore->
             .subscribe {
                 //  if (it.view.text.isNotEmpty()) isSearching = true
                 if (it.view.text.toString().length > 2) {
@@ -190,10 +190,10 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
                 statusButton.visibility = View.GONE
                 hospitalsRecyclerView.visibility = View.GONE
                 loadingProgressBar.visibility = View.VISIBLE
-                searchEditText.isEnabled=false
+                searchEditText.isEnabled = false
             }
             LoadingState.LOADED -> {
-                searchEditText.isEnabled=true
+                searchEditText.isEnabled = true
                 connectivityLiveData.value?.let {
                     if (it) {
                         statusButton.visibility = View.GONE

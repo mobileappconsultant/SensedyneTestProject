@@ -22,9 +22,10 @@ object TestImplementationDependencies {
         add(espressoCore)
         add(core_testing)
         add(robolectric)
-      //  add(mockito_inline)
+        add(mockito_inline)
         add(coroutine_test)
         add(mockwebserver)
+        add("org.mockito:mockito-core:${Versions.mockito_version}")
         add(core_ktx)
         add(junit_ext)
     }
