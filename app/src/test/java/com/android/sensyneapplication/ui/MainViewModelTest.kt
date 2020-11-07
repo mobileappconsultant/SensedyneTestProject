@@ -55,8 +55,6 @@ class MainViewModelTest : TestCase() {
             viewModel.fetchHospitals()
             viewModel.hospitalsLoadingStateLiveData.observeForever { hospitalItemObserver }
 
-            // then
-            //   assertEquals(viewModel.movieLoadingStateLiveData.value, LoadingState.INVALID_API_KEY)
             runBlocking {
                 // Verify
                 assertNotNull(viewModel.hospitalsLoadingStateLiveData.value)
@@ -78,26 +76,10 @@ class MainViewModelTest : TestCase() {
             viewModel.hospitalsLoadingStateLiveData.observeForever { hospitalItemObserver }
 
             // then
-            // assertEquals(viewModel.movieLoadingStateLiveData.value, LoadingState.LOADING)
             runBlocking {
-                // assertEquals(viewModel.movieLoadingStateLiveData.value, LoadingState.INVALID_API_KEY)
                 // Verify
                 assertNull(viewModel._hospitalListLiveData.value)
             }
-            // verify(hospitalItemObserver).getUsers()
-            //     verify(viewModel.movieLoadingStateLiveData).value = LoadingState.LOADING
         }
     }
-
-    fun testGetMovieLoadingStateLiveData() {}
-
-    fun testGetNavigateToDetails() {}
-
-    fun testOnFragmentReady() {}
-
-    fun testOnSearchQuery() {}
-
-    fun testOnHospitalClicked() {}
-
-    fun testOnCleared() {}
 }
