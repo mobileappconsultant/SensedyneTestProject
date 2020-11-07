@@ -3,6 +3,7 @@
 
 *.iml
 .gradle
+/projectDir/schemas/
 /local.properties
 /.idea/caches
 /.idea/libraries
