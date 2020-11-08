@@ -101,14 +101,14 @@ class MainViewModel @Inject constructor(
     private fun fetchHospitalByQuery(query: String): LiveData<List<HospitalItem>> {
         val liveData = MutableLiveData<List<HospitalItem>>()
 
-        var query = queryBuilder.generateQuery(query)
+        var queryString = queryBuilder.generateQuery(query)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Main) {
                     hospitalsLoadingStateLiveData.value = LoadingState.LOADING
                 }
 
-                val hospitalQueryResponse = repository.queryHospitals(query)
+                val hospitalQueryResponse = repository.queryHospitals(queryString)
                 if (hospitalQueryResponse.isEmpty().not()) {
                     liveData.postValue(hospitalQueryResponse)
                 }

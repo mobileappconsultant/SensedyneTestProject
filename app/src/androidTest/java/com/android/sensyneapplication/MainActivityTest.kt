@@ -32,7 +32,6 @@ class MainActivityTest {
         TestSensyneApplication.testAppComponent.inject(this)
     }
 
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var loadingIdlingResource: LoadingIdlingResource
@@ -51,9 +50,8 @@ class MainActivityTest {
         }
     }
 
-
     @After
     fun tearDown() {
-         IdlingRegistry.getInstance().unregister(loadingIdlingResource)
+        IdlingRegistry.getInstance().unregister(loadingIdlingResource)
     }
 }

@@ -32,7 +32,7 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     private var isLoading: Boolean = false
     private val debouncePeriod: Long = 500
     private var isSearching = false
-    private  var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -160,11 +160,11 @@ class HospitalListFragment : Fragment(R.layout.fragment_hospital_list) {
     }
 
     private fun initialiseUIElements() {
-       val disposable = searchEditText.afterTextChangeEvents().skipInitialValue()
+        val disposable = searchEditText.afterTextChangeEvents().skipInitialValue()
             .debounce(debouncePeriod, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                   if (it.view.text.toString().length > 2) {
+                if (it.view.text.toString().length > 2) {
                     isSearching = true
                     mainViewModel.onSearchQuery(SearchAction.UserTypingAction(it.view.text.toString()))
                 } else {

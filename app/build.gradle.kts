@@ -53,7 +53,16 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        //    useIR = true
     }
+
+/*    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.compose_version
+        kotlinCompilerVersion = "1.4.0"
+    }*/
 }
 
 dependencies {
